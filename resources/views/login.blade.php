@@ -8,6 +8,7 @@
 <body>
     <div>
       <form action="/login" method='POST'>
+        @csrf
        <input name='loginname' type="text">
        <input name='loginpassword' type="password"> 
        <button>Login</button>

@@ -8,6 +8,10 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function logout(){
+      auth() -> logout();
+      return redirect('/');
+    }
     public function login(Request $request){
     $incoming_fields = $request -> validate([
         'loginname' => 'required',
@@ -15,7 +19,12 @@ class UserController extends Controller
     ]);
     if(auth() -> attempt(['name' => $incoming_fields['loginname'],'password' => $incoming_fields['loginpassword']])){
         $request -> session() -> regenerate();
+        return redirect('/home');
     }
+    else{
+        return redirect('/login')->with('error', 'Invalid credentials');
+    }
+    
     }
     public function register (Request $request){
      $incoming_fields = $request -> validate([
